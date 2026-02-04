@@ -1,5 +1,5 @@
 <?php
-// register.php
+// register.php - VERSIÓN CORREGIDA
 require_once 'config.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -22,6 +22,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     // Conectar a BD
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    
+    if ($conn->connect_error) {
+        die("Error de conexión: " . $conn->connect_error);
+    }
     
     // Verificar si usuario existe
     $stmt = $conn->prepare("SELECT id FROM account WHERE username = ?");
@@ -57,30 +61,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     $srp = calculateSRP6($username, $password);
     
-    // Insertar cuenta
+    // Insertar cuenta - CORRECCIÓN AQUÍ
     $stmt = $conn->prepare("
         INSERT INTO account (username, salt, verifier, email, reg_mail, expansion, last_ip) 
         VALUES (?, ?, ?, ?, ?, ?, ?)
     ");
     
+    // Preparar variables para bind_param
     $ip = $_SERVER['REMOTE_ADDR'];
+    $expansion = EXPANSION; // Crear variable separada
+    
+    // bind_param necesita variables, no constantes directas
     $stmt->bind_param(
-        "sssssis", 
+        "sssssis",  // "s" para string, "i" para integer
         $username, 
         $srp['salt'], 
         $srp['verifier'], 
         $email, 
         $email, 
-        EXPANSION, 
+        $expansion,  // Variable, no constante directa
         $ip
     );
     
     if ($stmt->execute()) {
-        echo "¡Cuenta creada exitosamente!";
-        // Opcional: asignar 30 días de VIP automáticamente
-        // account_access.php
+        $account_id = $stmt->insert_id;
+        echo "¡Cuenta creada exitosamente! ID: " . $account_id;
+        
+        // Opcional: asignar rango GM 0 (jugador normal)
+        $stmt2 = $conn->prepare("INSERT INTO account_access (id, gmlevel, RealmID) VALUES (?, 0, -1)");
+        $stmt2->bind_param("i", $account_id);
+        $stmt2->execute();
+        $stmt2->close();
+        
     } else {
-        echo "Error al crear cuenta: " . $conn->error;
+        echo "Error al crear cuenta: " . $stmt->error;
     }
     
     $stmt->close();
