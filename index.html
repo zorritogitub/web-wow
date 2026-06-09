@@ -225,12 +225,28 @@
             justify-content: center;
             font-size: 3rem;
             overflow: hidden;
+            position: relative;
         }
 
         .product-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+
+        .product-image-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
 
         .product-info {
@@ -555,9 +571,13 @@
                     <input type="text" id="productName" required>
                 </div>
                 <div>
-                    <label>Emoji/Ícono</label>
-                    <input type="text" id="productEmoji" placeholder="ej: 🧊" value="📦">
+                    <label>Icono (Font Awesome)</label>
+                    <input type="text" id="productIcon" placeholder="ej: fa-snowflake" value="fa-box">
                 </div>
+            </div>
+            <div class="form-group">
+                <label>URL de la Imagen del Producto</label>
+                <input type="url" id="productImage" placeholder="ej: https://ejemplo.com/imagen.jpg">
             </div>
             <div class="form-group full">
                 <label>Descripción</label>
@@ -631,21 +651,24 @@
             {
                 id: 1,
                 name: "Nevera Solar Pro",
-                emoji: "🧊",
+                icon: "fa-snowflake",
+                image: "https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?w=400&h=300&fit=crop",
                 desc: "Nevera de alta eficiencia A+++, 320L, funciona 24h con batería solar.",
                 prices: {USD: 1249, CUP: 32000, ZELLE: 1249}
             },
             {
                 id: 2,
                 name: "Panel Solar 550W",
-                emoji: "☀️",
+                icon: "fa-sun",
+                image: "https://images.unsplash.com/photo-1509391366360-2e938d440220?w=400&h=300&fit=crop",
                 desc: "Monocristalino PERC, resistencia a granizo y eficiencia 22.5%.",
                 prices: {USD: 289, CUP: 7500, ZELLE: 289}
             },
             {
                 id: 3,
                 name: "Kit Autoconsumo",
-                emoji: "🔋",
+                icon: "fa-battery-full",
+                image: "https://images.unsplash.com/photo-1578926313433-ca06b6a6b771?w=400&h=300&fit=crop",
                 desc: "2 paneles 550W + nevera eficiente + inversor/cargador 1.5kW.",
                 prices: {USD: 2390, CUP: 62000, ZELLE: 2390}
             }
@@ -672,7 +695,8 @@
         const newProduct = {
             id: Date.now(),
             name: document.getElementById('productName').value,
-            emoji: document.getElementById('productEmoji').value,
+            icon: document.getElementById('productIcon').value,
+            image: document.getElementById('productImage').value,
             desc: document.getElementById('productDesc').value,
             prices: {
                 USD: parseFloat(document.getElementById('productPriceUSD').value),
@@ -683,7 +707,7 @@
         products.push(newProduct);
         localStorage.setItem('products', JSON.stringify(products));
         document.getElementById('productForm').reset();
-        document.getElementById('productEmoji').value = '📦';
+        document.getElementById('productIcon').value = 'fa-box';
         renderAdmin();
         showNotification('✅ Producto agregado exitosamente');
     });
@@ -700,7 +724,7 @@
             const subtotal = price * item.quantity;
             total += subtotal;
             
-            message += `${product.emoji} *${product.name}*\n`;
+            message += `*${product.name}*\n`;
             message += `Cantidad: ${item.quantity}\n`;
             message += `Precio: ${price} ${currentCurrency}\n`;
             message += `Subtotal: ${(subtotal).toFixed(2)} ${currentCurrency}\n\n`;
@@ -732,7 +756,12 @@
         const container = document.getElementById('tiendaProducts');
         container.innerHTML = products.map(product => `
             <div class="product-card">
-                <div class="product-image">${product.emoji}</div>
+                <div class="product-image">
+                    ${product.image ? `<img src="${product.image}" alt="${product.name}">` : '<div style="font-size: 3rem;">📦</div>'}
+                    <div class="product-image-icon">
+                        <i class="fa ${product.icon || 'fa-box'}"></i>
+                    </div>
+                </div>
                 <div class="product-info">
                     <div class="product-name">${product.name}</div>
                     <div class="product-desc">${product.desc}</div>
@@ -774,7 +803,12 @@
         
         container.innerHTML = products.map(product => `
             <div class="product-card">
-                <div class="product-image">${product.emoji}</div>
+                <div class="product-image">
+                    ${product.image ? `<img src="${product.image}" alt="${product.name}">` : '<div style="font-size: 3rem;">📦</div>'}
+                    <div class="product-image-icon">
+                        <i class="fa ${product.icon || 'fa-box'}"></i>
+                    </div>
+                </div>
                 <div class="product-info">
                     <div class="product-name">${product.name}</div>
                     <div class="product-desc">${product.desc}</div>
@@ -864,7 +898,9 @@
                 
                 return `
                     <div class="cart-item">
-                        <div class="cart-item-image">${product.emoji}</div>
+                        <div class="cart-item-image">
+                            ${product.image ? `<img src="${product.image}" alt="${product.name}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">` : `<i class="fa ${product.icon || 'fa-box'}"></i>`}
+                        </div>
                         <div class="cart-item-details">
                             <div class="cart-item-name">${product.name}</div>
                             <div class="cart-item-price">${price} ${currentCurrency}</div>
