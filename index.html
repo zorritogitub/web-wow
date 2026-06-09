@@ -1,34 +1,647 @@
+Aquí tienes el código HTML/CSS/JS para una página web moderna de venta de "Neveras y Paneles Solares". Incluye un diseño atractivo, responsivo y el crédito de autor que solicitaste.
+
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Registro - Servidor WoW 3.3.5a</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>EcoFrost · Neveras + Paneles Solares | Innovación Energética</title>
+    <!-- Google Fonts: Fuentes modernas -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (íconos) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        body { font-family: Arial, sans-serif; background: #1a1a1a; color: #fff; }
-        .container { max-width: 400px; margin: 50px auto; padding: 20px; background: #2d2d2d; border-radius: 10px; }
-        input, button { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; }
-        input { border: 1px solid #444; background: #333; color: white; }
-        button { background: #4CAF50; color: white; border: none; cursor: pointer; }
-        button:hover { background: #45a049; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f6f9fc;
+            color: #1a2c3e;
+            scroll-behavior: smooth;
+        }
+
+        /* scrollbar elegante */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e2e8f0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3b9e5c;
+            border-radius: 10px;
+        }
+
+        /* header glassmorfismo */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1e7b4b, #2b9e5e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+        .logo p {
+            font-size: 0.75rem;
+            color: #4a627a;
+            font-weight: 500;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #1e3a4d;
+            transition: 0.2s;
+        }
+        .nav-links a:hover {
+            color: #2c7a4b;
+        }
+
+        .btn-contacto {
+            background: #1f8a4c;
+            color: white !important;
+            padding: 0.5rem 1.3rem;
+            border-radius: 40px;
+            font-weight: 600;
+            transition: all 0.2s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        .btn-contacto:hover {
+            background: #116b3b;
+            transform: scale(1.02);
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(120deg, #eef5f0 0%, #ffffff 100%);
+            padding: 4rem 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+        .hero-content {
+            flex: 1;
+            min-width: 260px;
+        }
+        .hero-content h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.2;
+            background: linear-gradient(to right, #1f6e43, #3fb070);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .hero-content p {
+            margin: 1.5rem 0;
+            font-size: 1.1rem;
+            color: #2c4b66;
+            max-width: 500px;
+        }
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        .stat span:first-child {
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: #1f8a4c;
+        }
+        .hero-image {
+            flex: 1;
+            text-align: center;
+        }
+        .hero-image i {
+            font-size: 12rem;
+            color: #2b9e5e;
+            filter: drop-shadow(0 20px 20px rgba(0,0,0,0.1));
+        }
+
+        /* sección productos */
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #1c3f2e;
+        }
+        .section-sub {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #4b6b85;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 2rem;
+            padding: 1.8rem;
+            transition: all 0.25s ease;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 35px -12px rgba(32, 128, 64, 0.2);
+        }
+        .card-icon {
+            font-size: 2.8rem;
+            color: #27965a;
+            margin-bottom: 1rem;
+        }
+        .product-card h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .price {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #1a4731;
+            margin: 1rem 0;
+        }
+        .price small {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #6c8dae;
+        }
+        .product-desc {
+            color: #2d4e6e;
+            margin-bottom: 1.3rem;
+            line-height: 1.4;
+        }
+        .feature-list {
+            list-style: none;
+            margin: 1rem 0;
+        }
+        .feature-list li {
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .feature-list i {
+            color: #289e5e;
+            width: 1.2rem;
+        }
+        .btn-card {
+            display: inline-block;
+            background: #eef3ef;
+            color: #1f6e43;
+            font-weight: 600;
+            padding: 0.7rem 1.5rem;
+            border-radius: 40px;
+            text-decoration: none;
+            transition: 0.2s;
+            margin-top: 0.5rem;
+        }
+        .btn-card:hover {
+            background: #1f8a4c;
+            color: white;
+        }
+
+        /* sección combo destacado */
+        .combo-section {
+            background: linear-gradient(115deg, #e2f0e6, #ffffff);
+            border-radius: 3rem;
+            margin: 2rem 2rem;
+            padding: 2.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 2rem;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+        }
+        .combo-info {
+            flex: 2;
+        }
+        .combo-info h3 {
+            font-size: 2rem;
+            font-weight: 800;
+        }
+        .combo-badge {
+            background: #ffc107;
+            display: inline-block;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .btn-combo {
+            background: #1f8a4c;
+            color: white;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            display: inline-block;
+            margin-top: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.2s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .btn-combo:hover {
+            background: #0f5e36;
+        }
+
+        /* testimonial / por qué elegirnos */
+        .why-us {
+            background: #ffffff;
+            border-radius: 2rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.02);
+            padding: 2rem;
+            margin-top: 1rem;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .feature-item i {
+            font-size: 2.5rem;
+            color: #2c9c60;
+            margin-bottom: 0.8rem;
+        }
+
+        /* footer */
+        footer {
+            background: #0c2a21;
+            color: #cbdcd2;
+            padding: 2rem 2rem 1rem;
+            margin-top: 3rem;
+            border-radius: 2rem 2rem 0 0;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .footer-copy {
+            text-align: center;
+            font-size: 0.9rem;
+            border-top: 1px solid #2a5542;
+            padding-top: 1.5rem;
+            letter-spacing: 1px;
+        }
+        .footer-copy strong {
+            color: #ffd966;
+            font-weight: 600;
+        }
+
+        @media (max-width: 780px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-content h2 {
+                font-size: 2.2rem;
+            }
+            .hero-image i {
+                font-size: 8rem;
+            }
+            .combo-section {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+        }
+        button, .btn-card, .btn-contacto, .btn-combo {
+            cursor: pointer;
+        }
+        .modal-alert {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #1d3d2f;
+            color: white;
+            padding: 1rem 1.8rem;
+            border-radius: 60px;
+            font-weight: 500;
+            z-index: 1000;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            backdrop-filter: blur(4px);
+            transition: opacity 0.3s;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .modal-alert.show {
+            opacity: 1;
+        }
+        a {
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Crear Cuenta WoW 3.3.5a</h2>
-        <form action="register.php" method="POST">
-            <input type="text" name="username" placeholder="Usuario (3-32 chars)" required>
-            <input type="password" name="password" placeholder="Contraseña" required>
-            <input type="email" name="email" placeholder="Email" required>
-            <button type="submit">Crear Cuenta</button>
-        </form>
+
+<header class="header">
+    <div class="logo">
+        <h1><i class="fas fa-solar-panel" style="color:#2b9e5e;"></i> EcoFrost</h1>
+        <p>Neveras + Energía Solar · Soluciones sustentables</p>
+    </div>
+    <div class="nav-links">
+        <a href="#productos">Productos</a>
+        <a href="#combo">Pack Ahorro</a>
+        <a href="#nosotros">Ventajas</a>
+        <a href="#contacto" class="btn-contacto">Consultar ahora</a>
+    </div>
+</header>
+
+<main>
+    <!-- Hero principal -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Frescura infinita <br> con energía del sol</h2>
+            <p>Neveras de alta eficiencia + paneles solares de última generación. Ahorra hasta un 70% en tu factura eléctrica.</p>
+            <div class="hero-stats">
+                <div class="stat"><span>+1200</span><br>Clientes</div>
+                <div class="stat"><span>98%</span><br>recomiendan</div>
+                <div class="stat"><span>5 años</span><br>garantía</div>
+            </div>
+        </div>
+        <div class="hero-image">
+            <i class="fas fa-snowflake"></i>
+            <i class="fas fa-solar-panel" style="margin-left: -1rem; font-size: 6rem;"></i>
+        </div>
+    </section>
+
+    <!-- Sección productos: neveras y paneles -->
+    <div class="container" id="productos">
+        <h2 class="section-title">⚡ Productos estrella</h2>
+        <p class="section-sub">Tecnología inverter + paneles monocristalinos de alto rendimiento</p>
         
-        <div style="margin-top: 20px; font-size: 12px; color: #888;">
-            <strong>Requisitos:</strong><br>
-            • Usuario: Solo letras y números<br>
-            • Contraseña: Mínimo 6 caracteres<br>
-            • Email: Para recuperación<br>
-            • Expansión: Wrath of the Lich King
+        <div class="cards-grid">
+            <!-- Nevera premium -->
+            <div class="product-card">
+                <div class="card-icon"><i class="fas fa-thermometer-half"></i></div>
+                <h3>Nevera Solar Pro</h3>
+                <div class="price">$1,249 USD <small>+ envío</small></div>
+                <p class="product-desc">Frigorífico eficiencia A+++, 320L, funciona 24h con batería solar.</p>
+                <ul class="feature-list">
+                    <li><i class="fas fa-check-circle"></i> Compresor DC inverter</li>
+                    <li><i class="fas fa-check-circle"></i> Pantalla inteligente</li>
+                    <li><i class="fas fa-check-circle"></i> Hasta 48h de autonomía</li>
+                </ul>
+                <a href="#" class="btn-card" data-product="Nevera Solar Pro">Cotizar <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <!-- Panel solar 550W -->
+            <div class="product-card">
+                <div class="card-icon"><i class="fas fa-solar-panel"></i></div>
+                <h3>Panel Solar Helios 550W</h3>
+                <div class="price">$289 USD <small>c/u</small></div>
+                <p class="product-desc">Monocristalino PERC, resistencia a granizo y eficiencia 22.5%.</p>
+                <ul class="feature-list">
+                    <li><i class="fas fa-check-circle"></i> Garantía 25 años</li>
+                    <li><i class="fas fa-check-circle"></i> Marco de aluminio reforzado</li>
+                    <li><i class="fas fa-check-circle"></i> Instalación rápida</li>
+                </ul>
+                <a href="#" class="btn-card" data-product="Panel Solar Helios 550W">Cotizar <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <!-- Kit combo solar nevera -->
+            <div class="product-card">
+                <div class="card-icon"><i class="fas fa-battery-full"></i></div>
+                <h3>Kit Autoconsumo</h3>
+                <div class="price">$2,390 USD <small>completo</small></div>
+                <p class="product-desc">2 paneles 550W + nevera eficiente + inversor/cargador 1.5kW.</p>
+                <ul class="feature-list">
+                    <li><i class="fas fa-check-circle"></i> Ahorro garantizado</li>
+                    <li><i class="fas fa-check-circle"></i> Instalación incluida*</li>
+                    <li><i class="fas fa-check-circle"></i> Monitoreo app</li>
+                </ul>
+                <a href="#" class="btn-card" data-product="Kit Autoconsumo">Solicitar oferta</a>
+            </div>
         </div>
     </div>
+
+    <!-- Combo especial nevera + paneles -->
+    <div id="combo">
+        <div class="combo-section">
+            <div class="combo-info">
+                <span class="combo-badge"><i class="fas fa-bolt"></i> OFERTA INTELIGENTE</span>
+                <h3>Pack Eco: Nevera Solar + 3 Paneles 550W</h3>
+                <p style="margin: 1rem 0; font-size: 1.1rem;">Sistema todo-en-uno para desconectar tu cocina del consumo eléctrico. Incluye batería de litio 5kWh y controlador MPPT.</p>
+                <div style="font-size: 2rem; font-weight: 800; color:#135c38;">$3,499 USD</div>
+                <div><span style="text-decoration: line-through; color:#738fa7;">$4,290</span> <strong style="color:#248f54;"> -18% de descuento</strong></div>
+                <a href="#" class="btn-combo" id="comboSpecialBtn"><i class="fas fa-cart-plus"></i> Comprar pack ahora</a>
+            </div>
+            <div style="flex:1; text-align:center;">
+                <i class="fas fa-solar-panel" style="font-size: 5rem; color:#1c824b;"></i> 
+                <i class="fas fa-snowflake" style="font-size: 4rem; margin-left: 0.5rem;"></i>
+                <p style="margin-top: 1rem;">💡 Financiación hasta 12 cuotas</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- por qué elegirnos y contacto -->
+    <div class="container" id="nosotros">
+        <div class="why-us">
+            <h2 class="section-title" style="margin-bottom: 0.5rem;">🌱 Energía que transforma hogares</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <h4>Certificación ISO</h4>
+                    <p>Productos con estándares de calidad global</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-truck-fast"></i>
+                    <h4>Envíos a todo el país</h4>
+                    <p>Instalación y soporte técnico especializado</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-leaf"></i>
+                    <h4>Huella de carbono neutra</h4>
+                    <p>Comprometidos con el medio ambiente</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-headset"></i>
+                    <h4>Soporte 24/7</h4>
+                    <p>Asesores en energía y refrigeración</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- bloque contacto simulado + CTA -->
+    <div class="container" id="contacto" style="padding-top: 0;">
+        <div style="background: #eef3ef; border-radius: 2rem; padding: 2rem; text-align: center;">
+            <i class="fas fa-envelope-open-text" style="font-size: 2.5rem; color: #27965a;"></i>
+            <h3 style="margin: 0.8rem 0;">¿Necesitas una cotización personalizada?</h3>
+            <p>Déjanos tu número o email y te asesoramos sin compromiso</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 1.5rem;">
+                <input type="text" placeholder="Tu nombre" id="contactName" style="padding: 0.8rem 1rem; border-radius: 60px; border: none; width: 220px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                <input type="email" placeholder="Email o celular" id="contactEmail" style="padding: 0.8rem 1rem; border-radius: 60px; border: none; width: 260px;">
+                <button id="sendContactBtn" style="background: #1f8a4c; border: none; color: white; padding: 0.8rem 2rem; border-radius: 60px; font-weight: bold; cursor: pointer;">Enviar mensaje</button>
+            </div>
+            <p style="font-size: 0.75rem; margin-top: 1rem;">Te responderemos en menos de 24hs. ¡Ofertas exclusivas!</p>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="footer-content">
+        <div>
+            <h3><i class="fas fa-sun"></i> EcoFrost Renew</h3>
+            <p>Soluciones integrales en refrigeración solar.</p>
+            <div style="margin-top: 0.8rem;">
+                <i class="fab fa-whatsapp"></i> +54 11 3456-7890 &nbsp;|&nbsp;
+                <i class="fas fa-map-marker-alt"></i> Ciudad Solar, Madrid / CDMX
+            </div>
+        </div>
+        <div>
+            <h4>Enlaces rápidos</h4>
+            <p><a href="#" style="color:#b9dfcb;">Neveras industriales</a></p>
+            <p><a href="#" style="color:#b9dfcb;">Paneles flexibles</a></p>
+            <p><a href="#" style="color:#b9dfcb;">Financiación</a></p>
+        </div>
+        <div>
+            <h4>Síguenos</h4>
+            <div style="font-size: 1.5rem; letter-spacing: 8px;">
+                <i class="fab fa-instagram"></i> <i class="fab fa-facebook"></i> <i class="fab fa-linkedin"></i>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copy">
+        © 2025 EcoFrost · Innovación Sostenible · <strong>COPYRING CARLOS_J</strong> · Todos los derechos reservados.
+    </div>
+</footer>
+
+<!-- notificación flotante -->
+<div id="toastMsg" class="modal-alert">✨ ¡Solicitud recibida! Te contactaremos pronto.</div>
+
+<script>
+    (function() {
+        // Toast flotante
+        const toast = document.getElementById('toastMsg');
+        
+        function showMessage(msg) {
+            toast.textContent = msg || '✨ ¡Solicitud recibida! Te contactaremos pronto.';
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Función interactiva para botones de producto (cotizar)
+        const btnsProducts = document.querySelectorAll('.btn-card');
+        btnsProducts.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const productName = btn.getAttribute('data-product') || btn.innerText.trim();
+                showMessage(`📦 Pedido de cotización: ${productName}. Un asesor te responderá.`);
+                // opcional: podría abrir whatsapp o formulario, pero simulamos bien.
+            });
+        });
+
+        // Botón combo especial
+        const comboBtn = document.getElementById('comboSpecialBtn');
+        if(comboBtn) {
+            comboBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                showMessage('🎉 ¡Pack Eco seleccionado! Recibirás información con descuento y financiación.');
+            });
+        }
+
+        // Envío de contacto (simulado)
+        const sendBtn = document.getElementById('sendContactBtn');
+        const nameInput = document.getElementById('contactName');
+        const emailInput = document.getElementById('contactEmail');
+        
+        if(sendBtn) {
+            sendBtn.addEventListener('click', () => {
+                let nameVal = nameInput.value.trim();
+                let contactVal = emailInput.value.trim();
+                if(!nameVal && !contactVal) {
+                    showMessage('⚠️ Por favor ingresa al menos tu nombre o un medio de contacto.');
+                    return;
+                }
+                showMessage(`✅ ¡Gracias ${nameVal || 'cliente'}! Revisamos tu consulta sobre neveras y paneles solares.`);
+                // reset opcional
+                nameInput.value = '';
+                emailInput.value = '';
+            });
+        }
+
+        // Agregar pequeña interacción para los enlaces de navegación suave
+        const navLinks = document.querySelectorAll('.nav-links a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                const hash = link.getAttribute('href');
+                if(hash && hash.startsWith('#')) {
+                    e.preventDefault();
+                    const targetId = hash.substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if(targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    } else if (targetId === 'contacto') {
+                        const contactoDiv = document.getElementById('contacto');
+                        if(contactoDiv) contactoDiv.scrollIntoView({ behavior: 'smooth' });
+                    } else if (targetId === 'productos') {
+                        document.getElementById('productos')?.scrollIntoView({ behavior: 'smooth' });
+                    } else if (targetId === 'combo') {
+                        document.getElementById('combo')?.scrollIntoView({ behavior: 'smooth' });
+                    } else if (targetId === 'nosotros') {
+                        document.getElementById('nosotros')?.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+
+        // Efecto dinámico en el hero para mostrar modernidad
+        const heroIcons = document.querySelector('.hero-image');
+        if(heroIcons) {
+            setInterval(() => {
+                const sunIcon = document.querySelector('.hero-image i:last-child');
+                if(sunIcon) {
+                    sunIcon.style.transform = 'rotate(5deg) scale(1.02)';
+                    setTimeout(() => { sunIcon.style.transform = ''; }, 800);
+                }
+            }, 3000);
+        }
+    })();
+</script>
 </body>
 </html>
+```
